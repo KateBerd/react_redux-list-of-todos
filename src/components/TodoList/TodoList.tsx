@@ -1,4 +1,4 @@
-/* eslint-disable */
+import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import classNames from 'classnames';
 import { currentTodoSlice } from '../../features/currentTodo';
@@ -66,9 +66,13 @@ export const TodoList: React.FC = () => {
                     data-cy="selectButton"
                     className="button"
                     type="button"
-                    onClick={() =>
-                      dispatch(currentTodoSlice.actions.selectedTodo(todo))
-                    }
+                    onClick={() => {
+                      if (currentTodo?.id === todo.id) {
+                        dispatch(currentTodoSlice.actions.deleteSelectedTodo());
+                      } else {
+                        dispatch(currentTodoSlice.actions.selectedTodo(todo));
+                      }
+                    }}
                   >
                     <span className="icon">
                       <i
